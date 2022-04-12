@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/rudychandra/golang_gin_gorm_GWT/dto"
-	"github.com/rudychandra/golang_gin_gorm_GWT/helper"
-	"github.com/rudychandra/golang_gin_gorm_GWT/service"
+	"github.com/Wordyka/golang_gin_gorm_JWT/dto"
+	"github.com/Wordyka/golang_gin_gorm_JWT/helper"
+	"github.com/Wordyka/golang_gin_gorm_JWT/service"
 )
 
 type UserController interface {

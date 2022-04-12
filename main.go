@@ -2,11 +2,11 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/rudychandra/golang_gin_gorm_GWT/config"
-	"github.com/rudychandra/golang_gin_gorm_GWT/controller"
-	"github.com/rudychandra/golang_gin_gorm_GWT/middleware"
-	"github.com/rudychandra/golang_gin_gorm_GWT/repository"
-	"github.com/rudychandra/golang_gin_gorm_GWT/service"
+	"github.com/Wordyka/golang_gin_gorm_JWT/config"
+	"github.com/Wordyka/golang_gin_gorm_JWT/controller"
+	"github.com/Wordyka/golang_gin_gorm_JWT/middleware"
+	"github.com/Wordyka/golang_gin_gorm_JWT/repository"
+	"github.com/Wordyka/golang_gin_gorm_JWT/service"
 	"gorm.io/gorm"
 )
 

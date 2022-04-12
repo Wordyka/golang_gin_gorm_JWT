@@ -3,9 +3,8 @@ package config
 import (
 	"fmt"
 	"os"
-
 	"github.com/joho/godotenv"
-	"github.com/rudychandra/golang_gin_gorm_GWT/entity"
+	"github.com/Wordyka/golang_gin_gorm_JWT/entity"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
