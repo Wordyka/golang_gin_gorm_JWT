@@ -4,9 +4,9 @@ import (
 	"log"
 
 	"github.com/mashingan/smapping"
-	"github.com/Wordyka/golang_gin_gorm_JWT/dto"
-	"github.com/Wordyka/golang_gin_gorm_JWT/entity"
-	"github.com/Wordyka/golang_gin_gorm_JWT/repository"
+	"github.com/Wordyka/golang_gin_gorm_JWT.git/dto"
+	"github.com/Wordyka/golang_gin_gorm_JWT.git/entity"
+	"github.com/Wordyka/golang_gin_gorm_JWT.git/repository"
 )
 
 type UserService interface {

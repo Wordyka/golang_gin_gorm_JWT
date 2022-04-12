@@ -5,10 +5,10 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/Wordyka/golang_gin_gorm_JWT/dto"
-	"github.com/Wordyka/golang_gin_gorm_JWT/entity"
-	"github.com/Wordyka/golang_gin_gorm_JWT/helper"
-	"github.com/Wordyka/golang_gin_gorm_JWT/service"
+	"github.com/Wordyka/golang_gin_gorm_JWT.git/dto"
+	"github.com/Wordyka/golang_gin_gorm_JWT.git/entity"
+	"github.com/Wordyka/golang_gin_gorm_JWT.git/helper"
+	"github.com/Wordyka/golang_gin_gorm_JWT.git/service"
 )
 
 //AuthController interface is a contract what this controller can do

@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/Wordyka/golang_gin_gorm_JWT/entity"
+	"github.com/Wordyka/golang_gin_gorm_JWT.git/entity"
 	"gorm.io/gorm"
 )
 

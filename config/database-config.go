@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"github.com/joho/godotenv"
-	"github.com/Wordyka/golang_gin_gorm_JWT/entity"
+	"github.com/Wordyka/golang_gin_gorm_JWT.git/entity"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
