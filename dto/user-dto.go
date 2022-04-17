@@ -1,6 +1,6 @@
 package dto
 
-//UserUpdateDTO is used by client when PUT update profile
+//struct UserUpdateDTO digunakn client ketika melakukan PUT update profile
 type UserUpdateDTO struct {
 	ID       uint64 `json:"id" form:"id"`
 	Name     string `json:"name" form:"name" binding:"required"`
@@ -14,3 +14,5 @@ type UserUpdateDTO struct {
 // 	Email    string `json:"email" form:"email" binding:"required" validate:"email"`
 // 	Password string `json:"password, omitempty" form:"password, omitempty" validate:"min:6" binding:"required" `
 // }
+
+

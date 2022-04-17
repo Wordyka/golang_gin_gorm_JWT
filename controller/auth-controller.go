@@ -11,17 +11,21 @@ import (
 	"github.com/Wordyka/golang_gin_gorm_JWT.git/service"
 )
 
-//AuthController interface is a contract what this controller can do
+//AuthController interface sebagai contract dari controller
+
+// interface AuthController yang berisi method Login dan Register dengan parameter berupa context HTTP web framework Gin
 type AuthController interface {
 	Login(ctx *gin.Context)
 	Register(ctx *gin.Context)
 }
 
+// struct authController yang berisi service dari AuthService dn JWTService
 type authController struct {
 	authService service.AuthService
 	jwtService  service.JWTService
 }
 
+// method NewAuthController untuk membuat service baru dari AuthService dab JWTService
 func NewAuthController(authService service.AuthService, jwtService service.JWTService) AuthController {
 	return &authController{
 		authService: authService,
@@ -29,6 +33,7 @@ func NewAuthController(authService service.AuthService, jwtService service.JWTSe
 	}
 }
 
+// implementasi interface pada method Login untuk melakukan autentikasi client
 func (c *authController) Login(ctx *gin.Context) {
 	var loginDTO dto.LoginDTO
 	errDTO := ctx.ShouldBind(&loginDTO)
@@ -49,6 +54,8 @@ func (c *authController) Login(ctx *gin.Context) {
 	ctx.AbortWithStatusJSON(http.StatusUnauthorized, response)
 }
 
+
+// implementasi interface pada method Register untuk mendaftarkan client
 func (c *authController) Register(ctx *gin.Context) {
 	var registerDTO dto.RegisterDTO
 	errDTO := ctx.ShouldBind(&registerDTO)
@@ -68,3 +75,5 @@ func (c *authController) Register(ctx *gin.Context) {
 		ctx.JSON(http.StatusCreated, response)
 	}
 }
+
+

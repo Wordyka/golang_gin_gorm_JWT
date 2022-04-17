@@ -13,6 +13,8 @@ import (
 	"github.com/Wordyka/golang_gin_gorm_JWT.git/service"
 )
 
+
+// pembuatan interface BookController yang berisi method dengan parameter berupa context HTTP web framework Gin
 type BookController interface {
 	All(context *gin.Context)
 	FindByID(context *gin.Context)
@@ -21,11 +23,13 @@ type BookController interface {
 	Delete(context *gin.Context)
 }
 
+// struct bookController yang berisi service dari BookService dn JWTService
 type bookController struct {
 	bookService service.BookService
 	jwtService  service.JWTService
 }
 
+// method NewBookController untuk membuat service baru dari BookService dab JWTService
 func NewBookController(bookServ service.BookService, jwtServ service.JWTService) BookController {
 	return &bookController{
 		bookService: bookServ,
@@ -33,12 +37,14 @@ func NewBookController(bookServ service.BookService, jwtServ service.JWTService)
 	}
 }
 
+// implementasi interface pada method All untuk mendapatkan semua data buku
 func (c *bookController) All(context *gin.Context) {
 	var books []entity.Book = c.bookService.All()
 	res := helper.BuildResponse(true, "OK", books)
 	context.JSON(http.StatusOK, res)
 }
 
+// implementasi interface pada method FindByID untuk mendapatkan data buku berdasarkan id
 func (c *bookController) FindByID(context *gin.Context) {
 	id, err := strconv.ParseUint(context.Param("id"), 0, 0)
 	if err != nil {
@@ -55,6 +61,7 @@ func (c *bookController) FindByID(context *gin.Context) {
 	}
 }
 
+// implementasi interface pada method Insert untuk membuat data buku baru
 func (c *bookController) Insert(context *gin.Context) {
 	var bookCreateDTO dto.BookCreateDTO
 	errDTO := context.ShouldBind(&bookCreateDTO)
@@ -74,6 +81,7 @@ func (c *bookController) Insert(context *gin.Context) {
 	}
 }
 
+// implementasi interface pada method Update untuk mengubah data buku berdasarkan id
 func (c *bookController) Update(context *gin.Context) {
 	var bookUpdateDTO dto.BookUpdateDTO
 	errDTO := context.ShouldBind(&bookUpdateDTO)
@@ -103,6 +111,7 @@ func (c *bookController) Update(context *gin.Context) {
 
 }
 
+// implementasi interface pada method Delete untuk menghapus data buku berdasarkan id
 func (c *bookController) Delete(context *gin.Context) {
 	var book entity.Book
 	id, err := strconv.ParseUint(context.Param("id"), 0, 0)
@@ -128,6 +137,7 @@ func (c *bookController) Delete(context *gin.Context) {
 	}
 }
 
+//  Method getUserIDByToken untuk mendapatkan user dengan token yang sesuai dengan yang dipassing 
 func (c *bookController) getUserIDByToken(token string) string {
 	aToken, err := c.jwtService.ValidateToken(token)
 	if err != nil {

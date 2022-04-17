@@ -7,22 +7,25 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
+// interface JWTService sebagai contract mengenai service yang dibuat
 type JWTService interface {
 	GenerateToken(userID string) string
 	ValidateToken(token string) (*jwt.Token, error)
 }
 
+// struct jwtCustomClaim yang berisi variabel yang digunakan untuk mengklaim jwt berdasarkan user_id 
 type jwtCustomClaim struct {
 	UserID string `json:"user_id"`
 	jwt.StandardClaims
 }
 
+// struct jwtService yang berisi variabel untuk menyimpan secretKey dan issuer
 type jwtService struct {
 	secretKey string
 	issuer    string
 }
 
-//NewJWTService methode is creates a new instance of JWTService
+//fungsi NewJWTService untuk membuat instansiasi pada JWTService
 func NewJWTService() JWTService {
 	return &jwtService{
 		issuer:    "rudychandra",
@@ -30,6 +33,7 @@ func NewJWTService() JWTService {
 	}
 }
 
+// fungsi getSecretKey untuk mendapatkan secret key berupa string 
 func getSecretKey() string {
 	secretKey := os.Getenv("JWT_SECRET")
 	if secretKey != "" {
@@ -38,6 +42,8 @@ func getSecretKey() string {
 	return secretKey
 }
 
+
+// fungsi GenerateToken untuk mendapatkan / mengenerate token berdasarkan user_id nya 
 func (j *jwtService) GenerateToken(UserID string) string {
 	claims := &jwtCustomClaim{
 		UserID,
@@ -55,6 +61,8 @@ func (j *jwtService) GenerateToken(UserID string) string {
 	return t
 }
 
+
+// fungsi ValidateToken untuk memvalidasi token berdasarkan token dari jwt
 func (j *jwtService) ValidateToken(token string) (*jwt.Token, error) {
 	return jwt.Parse(token, func(t_ *jwt.Token) (interface{}, error) {
 		if _, ok := t_.Method.(*jwt.SigningMethodHMAC); !ok {

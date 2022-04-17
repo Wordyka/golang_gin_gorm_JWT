@@ -4,7 +4,10 @@ import (
 	"strings"
 )
 
-//response is used for static shape json return
+// Berisi modul untuk memberikan respon yang berhasil maupun gagal
+
+
+// struct Response dengan pengembalian nilai json 
 type Response struct {
 	Status  bool        `json:"status"`
 	Message string      `json:"message"`
@@ -12,10 +15,11 @@ type Response struct {
 	Data    interface{} `json:"data"`
 }
 
-//EmptyObj object is used when data doesnt want to be null on json
+
+// struct EmptyObj ketik data tersebut tidak dibolehkan null pada json
 type EmptyObj struct{}
 
-//BuildResponse methode is to inject data value to dynamic success response
+// method BuildResponse untuk memberikan nilai dari data secara dynamic dengan respon success 
 func BuildResponse(status bool, message string, data interface{}) Response {
 	res := Response{
 		Status:  status,
@@ -26,7 +30,7 @@ func BuildResponse(status bool, message string, data interface{}) Response {
 	return res
 }
 
-//BuildErrorResponse method is to inject data value to dynamic failed response
+// method BuildResponse untuk memberikan nilai dari data secara dynamic dengan respon failed
 func BuildErrorResponse(message string, err string, data interface{}) Response {
 	splitedError := strings.Split(err, "\n")
 	res := Response{

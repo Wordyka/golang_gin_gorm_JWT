@@ -10,6 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// deklarasi variabel dengan meng-assign valuenya berupa instansiasi file pada package nya
 var (
 	db             *gorm.DB                  = config.SetupDatabaseConnection()
 	userRepository repository.UserRepository = repository.NewUserRepository(db)
@@ -23,22 +24,29 @@ var (
 	bookController controller.BookController = controller.NewBookController(bookService, jwtService)
 )
 
+// fungsi main() sebagai entry point dalam menjalankan server
 func main() {
-	defer config.CloseDatabaseConnection(db)
+	// melakukan delay ketika eksekusi method CloseDatabaseConnection untuk menutup koneksi database
+	defer config.CloseDatabaseConnection(db)	
+
+	// instansiasi gin secara default pada variabel r
 	r := gin.Default()
 
+	// Route untuk melakukan autentikasi
 	authRoutes := r.Group("api/auth")
 	{
 		authRoutes.POST("/login", authController.Login)
 		authRoutes.POST("/register", authController.Register)
 	}
 
+	// Route untuk mengakses profile dengan meng-authorisasi JWT nya terlebih dahulu
 	userRoutes := r.Group("api/user", middleware.AuthorizeJWT(jwtService))
 	{
 		userRoutes.GET("/profile", userController.Profile)
 		userRoutes.PUT("/profile", userController.Update)
 	}
 
+	// Route untuk mengakses data book dengan meng-authorisasi JWT nya terlebih dahulu
 	bookRoutes := r.Group("api/books", middleware.AuthorizeJWT(jwtService))
 	{
 		bookRoutes.GET("/", bookController.All)
@@ -48,5 +56,6 @@ func main() {
 		bookRoutes.DELETE("/:id", bookController.Delete)
 	}
 
+	// menjalankan gin
 	r.Run()
 }

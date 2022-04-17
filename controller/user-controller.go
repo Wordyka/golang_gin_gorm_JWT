@@ -11,11 +11,13 @@ import (
 	"github.com/Wordyka/golang_gin_gorm_JWT.git/service"
 )
 
+// pembuatan interface UserController yang berisi method dengan parameter berupa context HTTP web framework Gin
 type UserController interface {
 	Update(context *gin.Context)
 	Profile(context *gin.Context)
 }
 
+// struct UserController yang berisi service dari UserService dn JWTService
 type userController struct {
 	userService service.UserService
 	jwtService  service.JWTService
@@ -29,6 +31,7 @@ func NewUserController(userService service.UserService, jwtService service.JWTSe
 	}
 }
 
+// implementasi interface pada method Update untuk mengubah data user sesuai token yang di passing
 func (c *userController) Update(context *gin.Context) {
 	var userUpdateDTO dto.UserUpdateDTO
 	errDTO := context.ShouldBind(&userUpdateDTO)
@@ -53,6 +56,8 @@ func (c *userController) Update(context *gin.Context) {
 	context.JSON(http.StatusOK, res)
 }
 
+
+// implementasi interface pada method Profile untuk mendapatkan data user itu sendiri 
 func (c *userController) Profile(context *gin.Context) {
 	authHeader := context.GetHeader("Authorization")
 	token, errToken := c.jwtService.ValidateToken(authHeader)

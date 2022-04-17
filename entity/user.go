@@ -1,5 +1,6 @@
 package entity
 
+// struct User untuk membuat field tabel User pada database
 type User struct {
 	ID       uint64  `gorm:"primary_key:auto_increament" json:"id"`
 	Name     string  `gorm:"type:varchar(255)" json:"name"`
@@ -8,3 +9,5 @@ type User struct {
 	Token    string  `gorm:"-" json:"token,omitempty"`
 	Books    *[]Book `json:"books,omitempty"`
 }
+
+

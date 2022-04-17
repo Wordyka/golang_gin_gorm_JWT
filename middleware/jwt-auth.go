@@ -10,7 +10,7 @@ import (
 	"github.com/Wordyka/golang_gin_gorm_JWT.git/service"
 )
 
-//AuthorizeJWT validates the token user given, return 401 if not valid
+// method AuthorizeJWT memvalidasi token user yang diberikan dan mengembalikan kode 401 jika token tersebut tidak valid
 func AuthorizeJWT(jwtService service.JWTService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
@@ -31,3 +31,5 @@ func AuthorizeJWT(jwtService service.JWTService) gin.HandlerFunc {
 		}
 	}
 }
+
+

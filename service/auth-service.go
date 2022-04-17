@@ -10,7 +10,10 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-//AuthService is a contract about something that this service can do
+// digunakan untuk mengerjakan task tertentu yang berhubungan langsung dengan layer presentation (interface/front end client).
+	
+
+// interface AuthService sebagai contract mengenai service yang dibuat pada autentikasi
 type AuthService interface {
 	VerifyCredential(email string, password string) interface{}
 	CreateUser(user dto.RegisterDTO) entity.User
@@ -18,16 +21,21 @@ type AuthService interface {
 	IsDuplicateEmail(email string) bool
 }
 
+// struct authService untuk menginstansiasi interface dari UserRepository dari package repository
 type authService struct {
 	userRepository repository.UserRepository
 }
 
+
+// fungsi NewAuthService untuk memanggil struct authService dengan menginisialisasi variabel address userRepository
 func NewAuthService(userRep repository.UserRepository) AuthService {
 	return &authService{
 		userRepository: userRep,
 	}
 }
 
+
+// fungsi VerifiyCredential sebagai verifikasi email dan password pada userRepository
 func (service *authService) VerifyCredential(email string, password string) interface{} {
 	res := service.userRepository.VerifyCredential(email, password)
 	if v, ok := res.(entity.User); ok {
@@ -40,6 +48,8 @@ func (service *authService) VerifyCredential(email string, password string) inte
 	return res
 }
 
+
+// fungsi CreateUser untuk membuat user baru
 func (service *authService) CreateUser(user dto.RegisterDTO) entity.User {
 	userToCreate := entity.User{}
 	err := smapping.FillStruct(&userToCreate, smapping.MapFields(&user))
@@ -50,15 +60,18 @@ func (service *authService) CreateUser(user dto.RegisterDTO) entity.User {
 	return res
 }
 
+// fungsi FindByEmail untuk mencaru user melalui email user tersebut
 func (service *authService) FindByEmail(email string) entity.User {
 	return service.userRepository.FindByEmail(email)
 }
 
+// fungsi isDuplicateEmail untuk mengecek email user tersebut apakah duplicate dengan user lain
 func (service *authService) IsDuplicateEmail(email string) bool {
 	res := service.userRepository.IsDuplicateEmail(email)
 	return !(res.Error == nil)
 }
 
+// fungsi comparePassword untuk membandingkan password yang dienkripsi dengan inputan user
 func comparePassword(hashedPwd string, plainPassword []byte) bool {
 	byteHash := []byte(hashedPwd)
 	err := bcrypt.CompareHashAndPassword(byteHash, plainPassword)
@@ -67,3 +80,7 @@ func comparePassword(hashedPwd string, plainPassword []byte) bool {
 	}
 	return true
 }
+
+
+
+
